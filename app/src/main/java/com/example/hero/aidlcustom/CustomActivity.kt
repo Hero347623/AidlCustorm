@@ -7,9 +7,7 @@ import android.os.Bundle
 import android.os.IBinder
 import android.util.Log
 import android.view.View
-import com.example.hero.aidlproject.BeanClass
-import com.example.hero.aidlproject.CatContronller
-import com.example.hero.aidlproject.RequestCallBack
+import com.example.hero.aidlproject.*
 
 class CustomActivity :Activity(), RequestCallBack {
     override fun asBinder(): IBinder {
@@ -23,6 +21,9 @@ class CustomActivity :Activity(), RequestCallBack {
     private val TAG="ClientPrint"
     private var catContronller:CatContronller?=null
     private var connected=false
+    private var books:List<Book>?=null
+    private var num=1
+    private var bookController: BookController?=null
 
     private val serviceConnection = object : ServiceConnection {
         override fun onServiceConnected(componentName: ComponentName, service: IBinder) {
@@ -64,6 +65,15 @@ class CustomActivity :Activity(), RequestCallBack {
                         Log.e(TAG,"添加书籍遇到问题了:${e.message}")
                     }
                 }
+            }
+        }
+    }
+
+    private fun printBooks(books: List<Book>?) {
+        if (books!=null){
+            Log.e(TAG, "获取到书了!")
+            books.forEach{
+                Log.i(TAG,"书:$it")
             }
         }
     }
